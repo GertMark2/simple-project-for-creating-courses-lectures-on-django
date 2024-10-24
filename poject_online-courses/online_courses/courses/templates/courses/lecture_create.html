@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    .lecture-creation-container {
+        background-color: #f8f9fa; /* Светлый фон */
+        border-radius: 8px; /* Закругленные углы */
+        padding: 30px; /* Внутренние отступы */
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Тень для глубины */
+    }
+
+    .btn-primary {
+        margin-top: 15px; /* Отступ сверху для кнопки создания лекции */
+    }
+
+    .btn-secondary {
+        margin-top: 10px; /* Отступ сверху для кнопки возврата */
+    }
+
+    h2 {
+        margin-bottom: 20px; /* Отступ снизу для заголовка */
+    }
+</style>
+
+<div class="container mt-5 lecture-creation-container">
+    <h2>Создание новой лекции для курса "{{ course.title }}"</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Создать лекцию</button>
+    </form>
+    <a href="{% url 'course_detail' course.slug %}" class="btn btn-secondary mt-3">Назад к курсу</a>
+</div>
+{% endblock %}

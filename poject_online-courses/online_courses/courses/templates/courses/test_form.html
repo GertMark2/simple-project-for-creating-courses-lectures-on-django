@@ -1,0 +1,33 @@
+{% extends 'base.html' %} 
+
+{% block content %}
+<style>
+    .test-creation-container {
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        padding: 30px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-success {
+        margin-top: 15px;
+    }
+
+    .btn-primary {
+        margin-top: 10px;
+    }
+</style>
+
+<div class="container mt-5 test-creation-container">
+    <h2 class="mb-4">Создание теста для лекции: {{ lecture.title }}</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}  
+
+        <button type="submit" class="btn btn-success">Создать тест</button>  
+    </form>
+
+    <a href="{% url 'lecture_detail' lecture.id %}" class="btn btn-primary">Назад к лекции</a> 
+</div>
+{% endblock %}

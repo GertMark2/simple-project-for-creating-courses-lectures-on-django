@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Тесты для лекции "{{ tests.first.lecture.title }}"</h2>
+    <form method="post">
+        {% csrf_token %}
+        {% for test in tests %}
+            <div class="form-group">
+                <label>{{ forloop.counter }}. {{ test.question }}</label><br>
+                {% for choice in test.choices %}
+                    <div>
+                        <input type="radio" name="question_{{ test.id }}" value="{{ choice }}"> {{ choice }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-success">Отправить</button>
+    </form>
+</div>
+{% endblock %}

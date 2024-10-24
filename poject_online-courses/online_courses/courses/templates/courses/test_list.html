@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Список тестов для лекции "{{ lecture.title }}"</h2>
+    <a href="{% url 'test_create' lecture.id %}" class="btn btn-success mb-3">Создать новый тест</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Вопрос</th>
+                <th>Правильный ответ</th>
+                <th>Действия</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for test in tests %}
+                <tr>
+                    <td>{{ test.question }}</td>
+                    <td>{{ test.correct_answer }}</td>
+                    <td>
+                        <a href="{% url 'test_edit' test.id %}" class="btn btn-warning">Редактировать</a>
+                        <form action="{% url 'test_delete' test.id %}" method="post" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger">Удалить</button>
+                        </form>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="3" class="text-center">Нет доступных тестов.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

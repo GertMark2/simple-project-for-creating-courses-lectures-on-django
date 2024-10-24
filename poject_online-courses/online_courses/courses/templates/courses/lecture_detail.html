@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    .lecture-container {
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        padding: 30px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .comment-list {
+        list-style: none;
+        padding: 0;
+    }
+
+    .comment-list li {
+        padding: 10px;
+        border-bottom: 1px solid #dee2e6;
+    }
+
+    .comment-list li:last-child {
+        border-bottom: none;
+    }
+
+    .pagination {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .pagination a {
+        margin: 0 5px;
+        text-decoration: none;
+        color: #007bff;
+    }
+
+    .pagination .current {
+        font-weight: bold;
+    }
+
+    .btn-primary {
+        margin-top: 15px;
+        border-radius: 0.25rem; /* Закруглённые углы для кнопки */
+    }
+</style>
+
+<div class="container mt-5 lecture-container">
+    <h2 class="mb-4">{{ lecture.title }}</h2>
+    <video width="100%" controls>
+        <source src="{{ lecture.video_url }}" type="video/mp4">
+        Ваш браузер не поддерживает видео.
+    </video>
+    <h3 class="mt-4">Комментарии:</h3>
+    <ul class="comment-list">
+        {% for comment in comments %}
+            <li><strong>{{ comment.author.username }}</strong>: {{ comment.text }}</li>
+        {% empty %}
+            <li>Нет комментариев.</li>
+        {% endfor %}
+    </ul>
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if comments.has_previous %}
+                <a href="?page=1">&laquo; Первая</a>
+                <a href="?page={{ comments.previous_page_number }}">Предыдущая</a>
+            {% endif %}
+
+            <span class="current">
+                Страница {{ comments.number }} из {{ comments.paginator.num_pages }}.
+            </span>
+
+            {% if comments.has_next %}
+                <a href="?page={{ comments.next_page_number }}">Следующая</a>
+                <a href="?page={{ comments.paginator.num_pages }}">Последняя &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+
+    <h4 class="mt-4">Добавить комментарий:</h4>
+    <form method="post">
+        {% csrf_token %}
+        {{ comment_form.as_p }}
+        <button type="submit" class="btn btn-primary">Добавить комментарий</button>
+    </form>
+    <a href="{% url 'test_create' lecture.id %}" class="btn btn-primary mt-3">Создать тест</a>
+</div>
+{% endblock %}

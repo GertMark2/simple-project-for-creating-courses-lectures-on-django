@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Редактирование теста для лекции "{{ test.lecture.title }}"</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+    </form>
+    <a href="{% url 'test_list' test.lecture.id %}" class="btn btn-secondary mt-3">Назад к списку тестов</a>
+</div>
+{% endblock %}

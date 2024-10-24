@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    .course-form-container {
+        background-color: #f8f9fa; /* Светлый фон */
+        border-radius: 8px; /* Закругленные углы */
+        padding: 30px; /* Внутренние отступы */
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Тень для глубины */
+    }
+
+    .btn-primary {
+        margin-top: 15px; /* Отступ сверху для кнопки */
+    }
+</style>
+
+<div class="container mt-5 course-form-container">
+    <h2>Создание курса</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Создать курс</button>
+    </form>
+</div>
+{% endblock %}

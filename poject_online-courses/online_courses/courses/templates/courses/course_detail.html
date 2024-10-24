@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    .course-detail-container {
+        background-color: #f8f9fa; /* Светлый фон */
+        border-radius: 8px; /* Закругленные углы */
+        padding: 30px; /* Внутренние отступы */
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Тень для глубины */
+    }
+
+    .lecture-list {
+        list-style-type: none; /* Убираем маркеры у списка */
+        padding-left: 0; /* Убираем отступ слева */
+    }
+
+    .lecture-list li {
+        margin-bottom: 10px; /* Отступ между лекциями */
+    }
+
+    .btn-success {
+        margin-top: 15px; /* Отступ сверху для кнопки добавления лекции */
+    }
+</style>
+
+<div class="container mt-5 course-detail-container">
+    <h2>{{ course.title }}</h2>
+    <p>{{ course.description }}</p>
+    
+    <h3>Лекции:</h3>
+    <ul class="lecture-list">
+        {% for lecture in course.lectures.all %}
+            <li><a href="{% url 'lecture_detail' lecture.id %}">{{ lecture.title }}</a></li>
+        {% empty %}
+            <li>Нет доступных лекций.</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'lecture_create' course.slug %}" class="btn btn-success">Добавить лекцию</a>
+</div>
+{% endblock %}

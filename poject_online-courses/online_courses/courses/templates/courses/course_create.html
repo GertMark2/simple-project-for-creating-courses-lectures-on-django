@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Создание нового курса</h2>
+    <form method="post" class="border p-4 rounded bg-light shadow-sm">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.as_p }}
+        </div>
+        <button type="submit" class="btn btn-primary">Создать курс</button>
+        <a href="{% url 'course_list' %}" class="btn btn-secondary mt-3">Назад к списку курсов</a>
+    </form>
+</div>
+{% endblock %}

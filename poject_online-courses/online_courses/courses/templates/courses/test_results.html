@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Результаты теста</h2>
+    <p>Вы правильно ответили на {{ score }} из {{ total }} вопросов.</p>
+    <a href="{% url 'lecture_detail' lecture_id=lecture_id %}" class="btn btn-primary">Назад к лекции</a>
+</div>
+{% endblock %}
